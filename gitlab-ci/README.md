@@ -11,8 +11,9 @@
 ## 2. 配置项目 default_branch  
     settings --> Edit Project  
     - pipelien 会根据 default_branch 的分支进行构建   
-    ![](../docs/edit_project.jpg)  
-    ![](../docs/project_settings.jpg)  
+    
+![](../docs/edit_project.jpg)  
+![](../docs/project_settings.jpg)  
     
 ## 3. 备注  
     项目规范
