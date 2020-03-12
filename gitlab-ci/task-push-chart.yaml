@@ -1,0 +1,36 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: push-helm-chart
+spec:
+  inputs:
+    resources:
+      - name: git-source
+        type: git
+    params:
+      - name: tagName
+        type: string
+      - name: chartRepo
+        type: string
+      - name: chartName
+        type: string
+      - name: repoName
+        type: string
+        default: harbor
+      - name: harborUrl
+        type: string
+      - name: harborUsername
+        type: string
+      - name: harborPassword
+        type: string
+
+  steps:
+    - name: push-helm-chart
+      image:  core-harbor-devops-ali.wise-paas.com.cn/library/k8s-helm:v3.1.1.1
+      script: |
+        chartRepo=`echo $(inputs.params.chartRepo) | tr 'A-Z' 'a-z'`
+        chartName=`echo $(inputs.params.chartName) | tr 'A-Z' 'a-z'`
+        imageVersion=`echo $(inputs.params.tagName)|awk -F '/' '{print \$3}'`
+        helm repo add --username $(inputs.params.harborUsername) --password $(inputs.params.harborPassword) $(inputs.params.repoName) https://$(inputs.params.harborUrl)/chartrepo/$chartRepo
+        sed -i 's/ciTagVersion/'$imageVersion'/g' /workspace/git-source/charts/$chartName/Chart.yaml
+        /opt/bin/helmpush /workspace/git-source/charts/$chartName/ $(inputs.params.repoName)

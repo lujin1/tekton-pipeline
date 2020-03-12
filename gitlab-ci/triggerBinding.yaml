@@ -1,0 +1,25 @@
+apiVersion: tekton.dev/v1alpha1
+kind: TriggerBinding
+metadata:
+  name: gitlab-tag-push-binding
+spec:
+  params:
+    - name: gitProjectName
+      value: $(body.project.name)
+    - name: gitHttpUrl
+      value: $(body.project.git_http_url)
+    - name: revision
+      value: $(body.project.default_branch)
+    - name: tagName
+      value: $(body.ref)
+    - name: pathToDockerFile
+      value: Dockerfile
+    - name: pathToContext
+      value: ""
+    - name: harborUrl
+      value: 
+    - name: harborUsername
+      value: "lu.jin@advantech.com.cn"
+    - name: harborPassword
+      value: ""
+
