@@ -4,6 +4,8 @@ metadata:
   name: gitlab-ci
 spec:
   params:
+    - name: serviceAccountName
+      type: string
     - name: gitProjectName
       description: The git project name
     - name: gitHttpUrl
@@ -33,7 +35,7 @@ spec:
       metadata:
         name: gitlab-ci-$(uid)
       spec:
-        serviceAccountName: delete-pod
+        serviceAccountName: $(params.serviceAccountName)
         pipelineRef:
           name: build-image-and-push-chart
         resources:
