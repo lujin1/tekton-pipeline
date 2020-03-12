@@ -2,15 +2,14 @@
 
 ## 1. 在 gitlab 项目中创建 webHook 触发器  
     settings --> integrations  
-   > - 配置 URL
-   > - 配置 Secret Token
-   > - 配置 Trigger   
+ - 配置 URL
+ - 配置 Secret Token
+ - 配置 Trigger   
     
 ![integrations](../docs/integrations.jpg)  
 
 ## 2. 配置项目 default_branch  
     settings --> Edit Project   
-
 - pipelien 会根据 default_branch 的分支进行构建   
     
 ![](../docs/edit_project.jpg)  
