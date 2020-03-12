@@ -4,7 +4,7 @@ metadata:
   name: gitlab-listener
 spec:
   # from examples/role-resources/servicaccount.yaml
-  serviceAccountName: delete-pod
+  serviceAccountName: tekton-pipeline
   triggers:
     - name: gitlab-push-events-trigger
       interceptors:
