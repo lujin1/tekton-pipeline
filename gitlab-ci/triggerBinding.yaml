@@ -19,7 +19,7 @@ spec:
     - name: pathToContext
       value: ""
     - name: harborUrl
-      value: 
+      value: ""  # 不含https://
     - name: harborUsername
       value: "lu.jin@advantech.com.cn"
     - name: harborPassword
