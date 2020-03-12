@@ -4,6 +4,8 @@ metadata:
   name: gitlab-tag-push-binding
 spec:
   params:
+    - name: serviceAccountName
+      value: tekton-pipeline
     - name: gitProjectName
       value: $(body.project.name)
     - name: gitHttpUrl
