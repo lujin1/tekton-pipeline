@@ -1,0 +1,62 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: install-helm-chart
+spec:
+  params:
+    - name: configName
+      type: string
+      description: Name of config map
+    - name: releaseName
+      type: string
+      default: myrelease
+    - name: chartName
+      type: string
+    - name: namespace
+      type: string
+    - name: repoName
+      type: string
+      default: harbor
+    - name: repoUrl
+      type: string
+    - name: repoUsername
+      type: string
+    - name: repoPassword
+      type: string
+
+  tasks:
+    - name: install-helm-chart
+      taskRef:
+        name: install-helm-chart
+      params:
+        - name: configName
+          value: $(params.configName)
+        - name: repoName
+          value: $(params.repoName)
+        - name: repoUrl
+          value: $(params.repoUrl)
+        - name: repoUsername
+          value: $(params.repoUsername)
+        - name: repoPassword
+          value: $(params.repoPassword)
+        - name: releaseName
+          value: $(params.releaseName)
+        - name: chartName
+          value: $(params.chartName)
+        - name: namespace
+          value: $(params.namespace)
+
+    - name: get-ingress
+      taskRef:
+        name: get-ingress
+      runAfter:
+        - install-helm-chart
+      params:
+        - name: namespace
+          value: $(params.namespace)
+        - name: releaseName
+          value: $(params.releaseName)
+        - name: chartName
+          value: $(params.chartName)
+        - name: configName
+          value: $(params.configName)

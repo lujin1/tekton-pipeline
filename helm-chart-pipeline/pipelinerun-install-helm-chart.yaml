@@ -1,0 +1,27 @@
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineRun
+metadata:
+  name: install-helm-chart-run
+spec:
+  pipelineRef:
+    name: install-helm-chart
+  params:
+    - name: configName
+      value: kubeconfig
+      description: Name of config map
+    - name: releaseName
+      value: lujintest
+      default: myrelease
+    - name: chartName
+      value: nginx-ingress
+    - name: namespace
+      value: tekton-pipelines
+    - name: repoName
+      value: harbor
+      default: harbor
+    - name: repoUrl
+      value:
+    - name: repoUsername
+      value:
+    - name: repoPassword
+      value: '@'

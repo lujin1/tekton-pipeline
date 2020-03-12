@@ -1,0 +1,19 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: delete-pod
+spec:
+  schedule: "0 0 * * *"
+  successfulJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccount: delete-pod
+          containers:
+          - name: delete-pod
+            image: core-harbor-devops-ali.wise-paas.com.cn/library/kubectl-delete-pod:1.0.0
+            imagePullPolicy: IfNotPresent #Always
+            command: ["sh"]
+            args: ["/opt/delete-pod.sh","Evicted"]
+          restartPolicy: OnFailure
