@@ -4,7 +4,7 @@
     settings --> integrations  
    > - 配置 URL
    > - 配置 Secret Token
-   > - 配置 Trigger 
+   > - 配置 Trigger   
     
 ![integrations](../docs/integrations.jpg)  
 
