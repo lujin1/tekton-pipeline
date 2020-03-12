@@ -2,6 +2,7 @@ gitlabUser=$1
 gitlabPossword=$2
 dockerUser=$3
 dockerPassword=$4
+gitlabToken=$5
 
 kucectl apply -f https://github.com/tektoncd/pipeline/releases/download/v0.10.1/release.yaml
 kubectl apply -f https://github.com/tektoncd/dashboard/releases/download/v0.5.2/tekton-dashboard-release.yaml
@@ -41,3 +42,11 @@ secrets:
   - name: gitlab'''|kubectl -n tekton-pipelines apply -f - 
  
  kubectl create clusterrolebinding tekton-pipeline --clusterrole=cluster-admin --serviceaccount=tekton-pipelines:tekton-pipeline --namespace=tekton-pipelines 
+ 
+echo '''apiVersion: v1
+kind: Secret
+metadata:
+  name: gitlab-ci-secret
+type: Opaque
+stringData:
+  gitlabToken: $gitlabToken '''|kubectl -n tekton-pipelines apply -f - 
