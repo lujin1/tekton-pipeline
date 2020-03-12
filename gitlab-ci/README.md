@@ -19,3 +19,5 @@
 - Dockerfile 放在项目根目录下
 - helm chart 放在项目charts目录下
 - arfa harbor 上的项目名称和 git 上的项目名词保持一致（大小写忽略）
+
+![integrations](../docs/project.jpg)
