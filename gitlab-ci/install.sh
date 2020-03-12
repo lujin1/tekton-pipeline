@@ -43,10 +43,4 @@ secrets:
  
  kubectl create clusterrolebinding tekton-pipeline --clusterrole=cluster-admin --serviceaccount=tekton-pipelines:tekton-pipeline --namespace=tekton-pipelines 
  
-echo '''apiVersion: v1
-kind: Secret
-metadata:
-  name: gitlab-ci-secret
-type: Opaque
-stringData:
-  gitlabToken: $gitlabToken '''|kubectl -n tekton-pipelines apply -f - 
+
