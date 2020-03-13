@@ -5,6 +5,7 @@
  - 配置 URL
  - 配置 Secret Token
  - 配置 Trigger   
+ 
 ![](../docs/accessing_integrations.png)    
 ![integrations](../docs/integrations.jpg)  
 
