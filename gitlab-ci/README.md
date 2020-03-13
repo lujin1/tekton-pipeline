@@ -21,4 +21,5 @@
 - helm chart 中的 Chart.yaml 中的 `appVersion`、`version` 的值设置为 `ciTagVersion`
 - arfa harbor 上的项目名称和 git 上的项目名词保持一致（大小写忽略）
 
-![integrations](../docs/project.jpg)
+![](../docs/project.jpg)
+![](../docs/chart.jpg)
