@@ -29,6 +29,5 @@
     Create New Tag   
     Tag name 填写版本号，构建后的 image 和 helm chart 使用此版本号  
        
-![](../docs/tag.jpg)
 ![](../docs/create_tag.png)
     
