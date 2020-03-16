@@ -6,7 +6,6 @@ spec:
   params:
     - name: inHarborUrl
       type: string
-      default: harbor.arfa.wise-paas.com
       description: 源harbor地址
     - name: inHarborUsername
       type: string
@@ -29,7 +28,6 @@ spec:
       type: string
     - name: outHarborUrl
       type: string
-      default: core-harbor-devops-ali.wise-paas.com.cn
     - name: outHarborUsername
       type: string
     - name: outHarborPassword
