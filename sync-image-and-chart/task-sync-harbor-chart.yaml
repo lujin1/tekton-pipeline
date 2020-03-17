@@ -36,5 +36,5 @@ spec:
         helm pull --version $(inputs.params.inChartVersion) $(inputs.params.inProjectName)/$(inputs.params.inChartName)
         tar zxvf $(inputs.params.inChartName)-$(inputs.params.inChartVersion).tgz
         sed -i 's/Always/IfNotPresent/g' '$(inputs.params.inChartName)'/values.yaml
-        sed -i 's/$(inputs.params.inHarborUrl)\/$(inputs.params.inProjectName)\/$(inputs.params.inChartName)/$(inputs.params.inHarborUrl)\/$(inputs.params.outProjectName)\/$(inputs.params.inProjectName)\/$(inputs.params.inChartName)/g'  $(inputs.params.inChartName)/values.yaml
+        sed -i 's/$(inputs.params.inHarborUrl)\/$(inputs.params.inProjectName)\/$(inputs.params.inChartName)/$(inputs.params.outHarborUrl)\/$(inputs.params.outProjectName)\/$(inputs.params.inProjectName)\/$(inputs.params.inChartName)/g'  $(inputs.params.inChartName)/values.yaml
         /opt/bin/helmpush $(inputs.params.inChartName) $(inputs.params.outProjectName)
