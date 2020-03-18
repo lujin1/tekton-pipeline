@@ -3,8 +3,8 @@
 ## 痛点 
 - image和chart打包麻烦出错, 浪费大量开发时间
 - 版本混乱  
-  > 相同image版本，代码去不一致  
-  > chart 版本无法和image版本一一对应
+  > 相同image版本，代码却不一致  
+  > chart 版本无法和image版本对应
 
 ## 1. 在 gitlab 项目中创建 webHook 触发器  
     settings --> integrations  
