@@ -26,6 +26,7 @@
 - Dockerfile 放在项目根目录下
 - helm chart 放在项目charts目录下  
 - helm chart 中的 Chart.yaml 中的 `appVersion`、`version` 的值设置为 `ciTagVersion`
+- helm chart 中的values.yaml 中的 `image.repository` 的值设置为 `ciImageRepo`,`image.tag` 的值设置为 `ciTagVersion`
 - arfa harbor 上的项目名称和 git 上的项目名词保持一致（大小写忽略）
 
 ![](../docs/project.jpg)
@@ -33,7 +34,8 @@
 
 ## 4. 触发 CI
     Create New Tag   
-    Tag name 填写版本号，构建后的 image 和 helm chart 使用此版本号  
+    Tag name 填写版本号，构建后的 image 和 helm chart 使用此版本号  版本号必须符合 [SemVer 2](https://semver.org/)  
+    建议版本号为三位 `0.0.1`
        
 ![](../docs/create_tag.png)
     
