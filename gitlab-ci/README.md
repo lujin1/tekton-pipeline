@@ -31,6 +31,7 @@
 
 ![](../docs/project.jpg)
 ![](../docs/chart.jpg)
+![](../docs/values.jpg)
 
 ## 4. 触发 CI
     Create New Tag   
