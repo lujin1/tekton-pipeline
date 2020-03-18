@@ -39,3 +39,4 @@
        
 ![](../docs/create_tag.png)
     
+[example link](http://example.com/ "With a Title")
