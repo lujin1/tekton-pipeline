@@ -20,7 +20,7 @@
 - pipeline 会根据 default_branch 的分支进行构建   
 - pipeline 会根据 description 的路去构建image ("/"之前为harbor的项目名称，"/"之后为image的名称)  
     
-![](../docs/edit_project.jpg)  
+![](../docs/git_project.jpg)  
 ![](../docs/project_settings.jpg)  
     
 ## 3. 项目规范  
@@ -42,5 +42,5 @@
     建议版本号为三位 如：1.0.3
 [SemVer 2](https://semver.org/)      
 
-![](../docs/create_tag.png)
+![](../docs/git_tag.png)
     
