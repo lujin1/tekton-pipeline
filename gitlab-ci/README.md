@@ -17,7 +17,8 @@
 
 ## 2. 配置项目 default_branch  
     settings --> Edit Project   
-- pipelien 会根据 default_branch 的分支进行构建   
+- pipeline 会根据 default_branch 的分支进行构建   
+- pipeline 会根据 description 的路去构建image ("/"之前为harbor的项目名称，"/"之后为image的名称)  
     
 ![](../docs/edit_project.jpg)  
 ![](../docs/project_settings.jpg)  
