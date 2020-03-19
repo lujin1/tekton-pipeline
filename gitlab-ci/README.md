@@ -21,7 +21,7 @@
 - pipeline 会根据 description 的路去构建image ("/"之前为harbor的项目名称，"/"之后为image的名称)  
     
 ![](../docs/edit_project.jpg)  
-![](../docs/it_project.png)  
+![](../docs/git_project.png)  
     
 ## 3. 项目规范  
 - Dockerfile 放在项目根目录下
