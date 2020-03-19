@@ -28,7 +28,6 @@
 - helm chart 放在项目charts目录下  
 - helm chart 中的 Chart.yaml 中的 `appVersion`、`version` 的值设置为 `ciTagVersion`
 - helm chart 中的values.yaml 中的 `image.repository` 的值设置为 `ciImageRepo`,`image.tag` 的值设置为 `ciTagVersion`
-- arfa harbor 上的项目名称和 git 上的项目名词保持一致（大小写忽略）
 
 ![](../docs/project.jpg)
 ![](../docs/chart.jpg)
