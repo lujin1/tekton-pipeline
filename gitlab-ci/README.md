@@ -20,8 +20,8 @@
 - pipeline 会根据 default_branch 的分支进行构建   
 - pipeline 会根据 description 的路去构建image ("/"之前为harbor的项目名称，"/"之后为image的名称)  
     
-![](../docs/git_project.jpg)  
-![](../docs/project_settings.jpg)  
+![](../docs/edit_project.jpg)  
+![](../docs/it_project.png)  
     
 ## 3. 项目规范  
 - Dockerfile 放在项目根目录下
