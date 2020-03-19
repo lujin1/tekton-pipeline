@@ -35,8 +35,10 @@
 
 ## 4. 触发 CI
     Create New Tag   
-    Tag name 填写版本号，构建后的 image 和 helm chart 使用此版本号  版本号必须符合 [SemVer 2]
-    建议版本号为三位 如：0.0.1
+    Tag name 填写版本号(格式：v-1.0.0.3/1.0.3)  
+    构建后的 image 使用"/"之前的版本号；  
+    helm chart 使用"/"之后的版本号  helm chart 版本号必须符合 [SemVer 2]
+    建议版本号为三位 如：1.0.3
 [SemVer 2](https://semver.org/)      
 
 ![](../docs/create_tag.png)
