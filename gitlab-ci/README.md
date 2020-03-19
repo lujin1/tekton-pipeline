@@ -25,7 +25,7 @@
     
 ## 3. 项目规范  
 - Dockerfile 放在项目根目录下
-- helm chart 放在项目charts目录下  chart 的名称需要与上面description 中image的名称保持一致
+- helm chart 放在项目charts目录下  chart 的名称需要与上面 description 中image的名称保持一致
 - helm chart 中的 Chart.yaml 中的 `appVersion`、`version` 的值设置为 `ciTagVersion`
 - helm chart 中的values.yaml 中的 `image.repository` 的值设置为 `ciImageRepo`,`image.tag` 的值设置为 `ciTagVersion`
 
