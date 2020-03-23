@@ -65,4 +65,3 @@ spec:
             value: $(params.tagName)
           - name: harborUrl
             value: $(params.harborUrl)
-

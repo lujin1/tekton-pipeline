@@ -66,3 +66,4 @@ spec:
         value: harbor
       - name: harborUrl
         value: $(params.harborUrl)
+        

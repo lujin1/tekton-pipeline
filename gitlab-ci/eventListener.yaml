@@ -3,7 +3,6 @@ kind: EventListener
 metadata:
   name: gitlab-listener
 spec:
-  # from examples/role-resources/servicaccount.yaml
   serviceAccountName: tekton-pipeline
   triggers:
     - name: gitlab-push-events-trigger
