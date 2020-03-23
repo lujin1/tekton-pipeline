@@ -4,14 +4,14 @@ metadata:
   name: gitlab-tag-push-binding
 spec:
   params:
-    - name: serviceAccountName  #kubectl create clusterrolebinding tekton-pipeline --clusterrole=cluster-admin --serviceaccount=tekton-pipelines:tekton-pipeline --namespace=tekton-pipelines 
-      value: tekton-pipeline
     - name: gitProjectName
       value: $(body.project.name)
     - name: gitHttpUrl
       value: $(body.project.git_http_url)
     - name: revision
       value: $(body.project.default_branch)
+    - name: imageName
+      value: $(body.project.description)
     - name: tagName
       value: $(body.ref)
     - name: pathToDockerFile
@@ -19,9 +19,4 @@ spec:
     - name: pathToContext
       value: ""
     - name: harborUrl
-      value: ""  # 不含https://
-    - name: harborUsername
-      value: "lu.jin@advantech.com.cn"
-    - name: harborPassword
-      value: ""
-
+      value: harbor.arfa.wise-paas.com
