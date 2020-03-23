@@ -4,14 +4,14 @@ metadata:
   name: gitlab-ci
 spec:
   params:
-    - name: serviceAccountName
-      type: string
     - name: gitProjectName
       description: The git project name
     - name: gitHttpUrl
       description: The git project http url
     - name: revision
       default: master
+    - name: imageName
+      description: image name
     - name: tagName
       description: The tag name
     - name: pathToDockerFile
@@ -35,7 +35,7 @@ spec:
       metadata:
         name: gitlab-ci-$(uid)
       spec:
-        serviceAccountName: $(params.serviceAccountName)
+        serviceAccountName: tekton-pipeline
         pipelineRef:
           name: build-image-and-push-chart
         resources:
@@ -52,7 +52,7 @@ spec:
               type: image
               params:
                 - name: url
-                  value: $(params.harborUrl)/$(params.gitProjectName)/$(params.gitProjectName)
+                  value: $(params.harborUrl)/$(params.imageName)
 
         params:
           - name: gitProjectName
@@ -65,8 +65,4 @@ spec:
             value: $(params.tagName)
           - name: harborUrl
             value: $(params.harborUrl)
-          - name: harborUsername
-            value: $(params.harborUsername)
-          - name: harborPassword
-            value: $(params.harborPassword)
 
