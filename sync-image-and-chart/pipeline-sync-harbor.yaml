@@ -6,38 +6,22 @@ spec:
   params:
     - name: inHarborUrl
       type: string
-      description: 源harbor地址
-    - name: inHarborUsername
+      default: "harbor.arfa.wise-paas.com"
+    - name: inHarborImage
       type: string
-      description: 源harbor用户
-    - name: inHarborPassword
-      type: string
-      description: 源harbor密码
-    - name: inProjectName
-      type: string
-      description: 源harbor镜像所在项目
-    - name: inImageName
-      type: string
-      description: 镜像名称
-    - name: inImageVersion
-      type: string
-    - name: inChartName
-      type: string
-      description: chart名称
-    - name: inChartVersion
+      description: "例如: ensaas_routers_backend/ensaas_routers_backend"
+    - name: imageTag
       type: string
     - name: outHarborUrl
       type: string
-    - name: outHarborUsername
+      default: "core-harbor-devops-ali.wise-paas.com.cn"
+    - name: outHarborImage
       type: string
-    - name: outHarborPassword
+      description: "例如: ensaas-production/ensaas-router/backend"
+    - name: chartName
       type: string
-    - name: outProjectName
+    - name: chartVersion
       type: string
-      description: 目标harbor项目名称 (app-production、ensaas-production、ensaas-shared)
-    - name: outImageProject
-      type: string
-      description: 目标harbor二级项目名称
 
   tasks:
     - name: sync-harbor-image
@@ -46,50 +30,28 @@ spec:
       params:
         - name: inHarborUrl
           value: $(params.inHarborUrl)
-        - name: inHarborUsername
-          value: $(params.inHarborUsername)
-        - name: inHarborPassword
-          value: $(params.inHarborPassword)
-        - name: inProjectName
-          value: $(params.inProjectName)
-        - name: inImageName
-          value: $(params.inImageName)
-        - name: inImageTag
-          value: $(params.inImageVersion)
+        - name: inHarborImage
+          value: $(params.inHarborImage)
+        - name: imageTag
+          value: $(params.imageTag)
         - name: outHarborUrl
           value: $(params.outHarborUrl)
-        - name: outHarborUsername
-          value: $(params.outHarborUsername)
-        - name: outHarborPassword
-          value: $(params.outHarborPassword)
-        - name: outProjectName
-          value: $(params.outProjectName)
-        - name: outImageProject
-          value: $(params.outImageProject)
+        - name: outHarborImage
+          value: $(params.outHarborImage)
 
     - name: sync-helm-chart
       taskRef:
         name: sync-helm-chart
-      runAfter:
-        - sync-harbor-image
       params:
         - name: inHarborUrl
           value: $(params.inHarborUrl)
-        - name: inHarborUsername
-          value: $(params.inHarborUsername)
-        - name: inHarborPassword
-          value: $(params.inHarborPassword)
-        - name: inProjectName
-          value: $(params.inProjectName)
-        - name: inChartName
-          value: $(params.inChartName)
-        - name: inChartVersion
-          value: $(params.inChartVersion)
+        - name: inHarborImage
+          value: $(params.inHarborImage)
         - name: outHarborUrl
           value: $(params.outHarborUrl)
-        - name: outHarborUsername
-          value: $(params.outHarborUsername)
-        - name: outHarborPassword
-          value: $(params.outHarborPassword)
-        - name: outProjectName
-          value: $(params.outProjectName)
+        - name: outHarborImage
+          value: $(params.outHarborImage)
+        - name: chartName
+          value: $(params.chartName)
+        - name: chartVersion
+          value: $(params.chartVersion)

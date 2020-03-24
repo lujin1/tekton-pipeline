@@ -7,34 +7,51 @@ spec:
     params:
       - name: inHarborUrl
         type: string
-      - name: inHarborUsername
-        type: string
-      - name: inHarborPassword
-        type: string
-      - name: inProjectName
-        type: string
-      - name: inChartName
-        type: string
-      - name: inChartVersion
+      - name: inHarborImage
         type: string
       - name: outHarborUrl
         type: string
-      - name: outHarborUsername
+      - name: outHarborImage
         type: string
-      - name: outHarborPassword
+      - name: chartName
         type: string
-      - name: outProjectName
+      - name: chartVersion
         type: string
 
 
   steps:
     - name: sync-harbor-chart
       image:  core-harbor-devops-ali.wise-paas.com.cn/library/k8s-helm:v3.1.1.1
+      env:
+        - name: inHarborUsername
+          valueFrom:
+            secretKeyRef:
+              name: docker
+              key: username
+        - name: inHarborPassword
+          valueFrom:
+            secretKeyRef:
+              name: docker
+              key: password
+        - name: outHarborUsername
+          valueFrom:
+            secretKeyRef:
+              name: docker-core
+              key: username
+        - name: outHarborPassword
+          valueFrom:
+            secretKeyRef:
+              name: docker-core
+              key: password
       script: |
-        helm repo add --username $(inputs.params.inHarborUsername) --password '$(inputs.params.inHarborPassword)' $(inputs.params.inProjectName) https://$(inputs.params.inHarborUrl)/chartrepo/$(inputs.params.inProjectName)
-        helm repo add --username $(inputs.params.outHarborUsername) --password '$(inputs.params.outHarborPassword)' $(inputs.params.outProjectName) https://$(inputs.params.outHarborUrl)/chartrepo/$(inputs.params.outProjectName)
-        helm pull --version $(inputs.params.inChartVersion) $(inputs.params.inProjectName)/$(inputs.params.inChartName)
-        tar zxvf $(inputs.params.inChartName)-$(inputs.params.inChartVersion).tgz
-        sed -i 's/Always/IfNotPresent/g' '$(inputs.params.inChartName)'/values.yaml
-        sed -i 's/$(inputs.params.inHarborUrl)\/$(inputs.params.inProjectName)\/$(inputs.params.inChartName)/$(inputs.params.outHarborUrl)\/$(inputs.params.outProjectName)\/$(inputs.params.inProjectName)\/$(inputs.params.inChartName)/g'  $(inputs.params.inChartName)/values.yaml
-        /opt/bin/helmpush $(inputs.params.inChartName) $(inputs.params.outProjectName)
+        inImage=$(inputs.params.inHarborUrl)/$(inputs.params.inHarborImage)
+        outImage=$(inputs.params.outHarborUrl)/$(inputs.params.outHarborImage)
+        inProjectName=`echo $(inputs.params.inHarborImage)|awk -F '/' '{print $1}'`
+        outProjectName=`echo $(inputs.params.outHarborImage)|awk -F '/' '{print $1}'`
+        helm repo add --username $inHarborUsername --password $inHarborPassword $inProjectName https://$(inputs.params.inHarborUrl)/chartrepo/$inProjectName
+        helm repo add --username $outHarborUsername --password $outHarborPassword $outProjectName https://$(inputs.params.outHarborUrl)/chartrepo/$outProjectName
+        helm pull --version $(inputs.params.chartVersion) $inProjectName/$(inputs.params.chartName)
+        tar zxvf $(inputs.params.chartName)-$(inputs.params.chartVersion).tgz
+        sed -i 's/Always/IfNotPresent/g' $(inputs.params.chartName)/values.yaml
+        sed -i 's#'$inImage'#'$outImage'#g'  $(inputs.params.chartName)/values.yaml
+        /opt/bin/helmpush $(inputs.params.chartName) $outProjectName
