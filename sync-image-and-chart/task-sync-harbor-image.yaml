@@ -51,6 +51,7 @@ spec:
               name: docker-core
               key: password
       script: |
+        #!/usr/bin/env sh
         inImage=$(inputs.params.inHarborUrl)/$(inputs.params.inHarborImage):$(inputs.params.imageTag)
         outImage=$(inputs.params.outHarborUrl)/$(inputs.params.outHarborImage):$(inputs.params.imageTag)
         docker login $(inputs.params.inHarborUrl) -u $inHarborUsername -p $inHarborPassword

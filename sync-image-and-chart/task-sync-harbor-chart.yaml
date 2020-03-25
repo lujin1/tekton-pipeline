@@ -44,6 +44,7 @@ spec:
               name: docker-core
               key: password
       script: |
+        #!/usr/bin/env sh
         inImage=$(inputs.params.inHarborUrl)/$(inputs.params.inHarborImage)
         outImage=$(inputs.params.outHarborUrl)/$(inputs.params.outHarborImage)
         inProjectName=`echo $(inputs.params.inHarborImage)|awk -F '/' '{print $1}'`
