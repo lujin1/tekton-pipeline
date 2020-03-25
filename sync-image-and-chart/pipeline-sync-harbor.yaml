@@ -7,27 +7,42 @@ spec:
     - name: inHarborUrl
       type: string
       default: "harbor.arfa.wise-paas.com"
+    - name: isSyncImage
+      type: string
+      default: "true"
+      description: "true or false"
     - name: inHarborImage
       type: string
+      default: "null"
       description: "例如: ensaas_routers_backend/ensaas_routers_backend"
     - name: imageTag
       type: string
+      default: "null"
     - name: outHarborUrl
       type: string
       default: "core-harbor-devops-ali.wise-paas.com.cn"
     - name: outHarborImage
       type: string
+      default: "null"
       description: "例如: ensaas-production/ensaas-router/backend"
+    - name: isSyncChart
+      type: string
+      default: "true"
+      description: "true or false"
     - name: chartName
       type: string
+      default: "null"
     - name: chartVersion
       type: string
+      default: "null"
 
   tasks:
     - name: sync-harbor-image
       taskRef:
         name: sync-harbor-image
       params:
+        - name: isSyncImage
+          value: $(params.isSyncImage)
         - name: inHarborUrl
           value: $(params.inHarborUrl)
         - name: inHarborImage
@@ -43,6 +58,8 @@ spec:
       taskRef:
         name: sync-helm-chart
       params:
+        - name: isSyncChart
+          value: $(params.isSyncChart)
         - name: inHarborUrl
           value: $(params.inHarborUrl)
         - name: inHarborImage

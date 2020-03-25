@@ -5,6 +5,8 @@ metadata:
 spec:
   inputs:
     params:
+      - name: isSyncChart
+        type: string
       - name: inHarborUrl
         type: string
       - name: inHarborImage
@@ -45,9 +47,12 @@ spec:
               key: password
       script: |
         #!/usr/bin/env sh
-        inImage=$(inputs.params.inHarborUrl)/$(inputs.params.inHarborImage)
-        outImage=$(inputs.params.outHarborUrl)/$(inputs.params.outHarborImage)
-        inProjectName=`echo $(inputs.params.inHarborImage)|awk -F '/' '{print $1}'`
+        if [ $(inputs.params.isSyncChart) = "true" ];then
+        inHarborImage=`echo $(inputs.params.inHarborImage)|sed 's/[[:space:]]//g'`
+        outHarborImage=`echo $(inputs.params.outHarborImage)|sed 's/[[:space:]]//g'`
+        inImage=$(inputs.params.inHarborUrl)/$inHarborImage
+        outImage=$(inputs.params.outHarborUrl)/$outHarborImage
+        inProjectName=`echo $inHarborImage|awk -F '/' '{print $1}'`
         outProjectName=`echo $(inputs.params.outHarborImage)|awk -F '/' '{print $1}'`
         helm repo add --username $inHarborUsername --password $inHarborPassword $inProjectName https://$(inputs.params.inHarborUrl)/chartrepo/$inProjectName
         helm repo add --username $outHarborUsername --password $outHarborPassword $outProjectName https://$(inputs.params.outHarborUrl)/chartrepo/$outProjectName
@@ -56,3 +61,6 @@ spec:
         sed -i 's/Always/IfNotPresent/g' $(inputs.params.chartName)/values.yaml
         sed -i 's#'$inImage'#'$outImage'#g'  $(inputs.params.chartName)/values.yaml
         /opt/bin/helmpush $(inputs.params.chartName) $outProjectName
+        else
+           echo "skip sync chart"
+        fi

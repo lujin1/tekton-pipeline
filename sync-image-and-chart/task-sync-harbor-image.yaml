@@ -5,16 +5,18 @@ metadata:
 spec:
   inputs:
     params:
+      - name: isSyncImage
+        type: string
       - name: inHarborUrl
         type: string
       - name: inHarborImage
-        type: string
+        type: array
       - name: imageTag
         type: string
       - name: outHarborUrl
         type: string
       - name: outHarborImage
-        type: string
+        type: array
 
 
   steps:
@@ -52,14 +54,19 @@ spec:
               key: password
       script: |
         #!/usr/bin/env sh
-        inImage=$(inputs.params.inHarborUrl)/$(inputs.params.inHarborImage):$(inputs.params.imageTag)
-        outImage=$(inputs.params.outHarborUrl)/$(inputs.params.outHarborImage):$(inputs.params.imageTag)
+        if [ $(inputs.params.isSyncImage) = "true" ];then
+        inHarborImage=`echo $(inputs.params.inHarborImage)|sed 's/[[:space:]]//g'`
+        outHarborImage=`echo $(inputs.params.outHarborImage)|sed 's/[[:space:]]//g'`
+        inImage=$(inputs.params.inHarborUrl)/$inHarborImage:$(inputs.params.imageTag)
+        outImage=$(inputs.params.outHarborUrl)/$outHarborImage:$(inputs.params.imageTag)
         docker login $(inputs.params.inHarborUrl) -u $inHarborUsername -p $inHarborPassword
         docker login $(inputs.params.outHarborUrl) -u $outHarborUsername -p $outHarborPassword
         docker pull $inImage
         docker tag $inImage $outImage
         docker push $outImage
-
+        else
+           echo "skip sync images"
+        fi
 
       volumeMounts:
         - mountPath: /certs/client
