@@ -4,6 +4,7 @@ metadata:
   name: delete-pipelinerun
 spec:
   schedule: "0 0 * * *"
+  failedJobsHistoryLimit: 1
   successfulJobsHistoryLimit: 1
   jobTemplate:
     spec:
@@ -12,8 +13,8 @@ spec:
           serviceAccount: tekton-pipeline
           containers:
           - name: delete-pipelinerun
-            image: core-harbor-devops-ali.wise-paas.com.cn/library/kubectl-delete-pipelinerun:1.0.2
+            image: harbor.wise-paas.com/library/kubectl-delete-pipelinerun:1.0.2.6
             imagePullPolicy: IfNotPresent #Always
             command: ["sh"]
-            args: ["/opt/delete-pipelinerun.sh","tekton-pipelines","\"2d\""]
+            args: ["/opt/delete-pipelinerun.sh","tekton-pipelines","2d"]
           restartPolicy: OnFailure
