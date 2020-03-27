@@ -1,3 +1,5 @@
+#!/bin/sh
+
 namespaces=`kubectl get ns |grep -v "NAME"|awk '{print $1}'|xargs`
 for namespace in $namespaces;
 do

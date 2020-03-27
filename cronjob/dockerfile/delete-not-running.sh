@@ -1,3 +1,5 @@
+#!/bin/sh
+
 type=$1
 AGE=$2
 namespaces=`kubectl get ns |grep -v "NAME"|awk '{print $1}'|xargs`
