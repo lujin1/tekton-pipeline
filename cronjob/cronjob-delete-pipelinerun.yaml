@@ -1,7 +1,7 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: delete-pod
+  name: delete-pipelinerun
 spec:
   schedule: "0 0 * * *"
   failedJobsHistoryLimit: 1
@@ -10,11 +10,11 @@ spec:
     spec:
       template:
         spec:
-          serviceAccount: delete-pod
+          serviceAccount: tekton-pipeline
           containers:
-          - name: delete-pod
+          - name: delete-pipelinerun
             image: harbor.wise-paas.com/library/kubectl-delete-pipelinerun:1.0.2.8
             imagePullPolicy: IfNotPresent #Always
             command: ["sh"]
-            args: ["/opt/delete-pod.sh","Evicted"]
+            args: ["/opt/delete-pipelinerun.sh","tekton-pipelines","2d"]
           restartPolicy: OnFailure
