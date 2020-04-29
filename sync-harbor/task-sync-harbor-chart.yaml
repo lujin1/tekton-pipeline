@@ -59,13 +59,13 @@ spec:
         helm pull --version $(inputs.params.chartVersion) $inProjectName/$(inputs.params.chartName)
         tar zxvf $(inputs.params.chartName)-$(inputs.params.chartVersion).tgz
         sed -i 's/Always/IfNotPresent/g' $(inputs.params.chartName)/values.yaml
-        sed -i 's#'$inImage'#'$outImage'#g'  $(inputs.params.chartName)/values.yaml
 
         export IFS=","
         harborUrls=$(inputs.params.outHarborUrl)
         for u in $harborUrls
         do
         outImage=$u/$outHarborImage
+        sed -i 's#'$inImage'#'$outImage'#g'  $(inputs.params.chartName)/values.yaml
         helm repo add --username $outHarborUsername --password $outHarborPassword $u https://$u/chartrepo/$outProjectName
         /opt/bin/helmpush $(inputs.params.chartName) $u
         done
