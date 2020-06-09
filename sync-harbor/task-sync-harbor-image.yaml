@@ -1,24 +1,21 @@
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   name: sync-harbor-image
 spec:
-  inputs:
-    params:
-      - name: isSyncImage
-        type: string
-      - name: inHarborUrl
-        type: string
-      - name: inHarborImage
-        type: string
-      - name: imageTag
-        type: string
-      - name: outHarborUrl
-        type: string
-      - name: outHarborImage
-        type: string
-
-
+  params:
+    - name: isSyncImage
+      type: string
+    - name: inHarborUrl
+      type: string
+    - name: inHarborImage
+      type: string
+    - name: imageTag
+      type: string
+    - name: outHarborUrl
+      type: string
+    - name: outHarborImage
+      type: string
 
   steps:
     - name: sync-harbor-image

@@ -1,17 +1,17 @@
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   name: push-helm-chart
 spec:
-  inputs:
-    resources:
+  resources:
+    inputs:
       - name: git-source
         type: git
       - name: image-source
         type: image
-    params:
-      - name: tagName
-        type: string
+  params:
+    - name: tagName
+      type: string
 
   steps:
     - name: push-helm-chart

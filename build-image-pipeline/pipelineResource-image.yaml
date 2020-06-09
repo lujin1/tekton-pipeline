@@ -1,9 +1,0 @@
-apiVersion: tekton.dev/v1alpha1
-kind: PipelineResource
-metadata:
-  name: tekton-pipeline-image
-spec:
-  type: image
-  params:
-    - name: url
-      value:  harbor.arfa.wise-paas.com/lujin/kubectl-delete-pod

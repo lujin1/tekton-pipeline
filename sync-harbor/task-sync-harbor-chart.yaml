@@ -1,26 +1,23 @@
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   name: sync-helm-chart
 spec:
-  inputs:
-    params:
-      - name: isSyncChart
-        type: string
-      - name: inHarborUrl
-        type: string
-      - name: inHarborImage
-        type: string
-      - name: outHarborUrl
-        type: string
-      - name: outHarborImage
-        type: string
-      - name: chartName
-        type: string
-      - name: chartVersion
-        type: string
-
-
+  params:
+    - name: isSyncChart
+      type: string
+    - name: inHarborUrl
+      type: string
+    - name: inHarborImage
+      type: string
+    - name: outHarborUrl
+      type: string
+    - name: outHarborImage
+      type: string
+    - name: chartName
+      type: string
+    - name: chartVersion
+      type: string
 
   steps:
     - name: sync-harbor-chart

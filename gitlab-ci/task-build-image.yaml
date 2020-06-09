@@ -1,32 +1,32 @@
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   name: build-docker-image-from-git-source
 spec:
-  inputs:
-    resources:
+  resources:
+    inputs:
       - name: git-source
         type: git
-    params:
-      - name: pathToDockerFile
-        type: string
-        description: The path to the dockerfile to build
-        default: /workspace/docker-source/Dockerfile
-      - name: pathToContext
-        type: string
-        description:
-          The build context used by Kaniko
-          (https://github.com/GoogleContainerTools/kaniko#kaniko-build-contexts)
-        default: .
-      - name: tagName
-        type: string
-        default: v-1.0.0
-        description: Build docker image tag
-        
-  outputs:
-    resources:
+    outputs:
       - name: image-source
         type: image
+
+  params:
+    - name: pathToDockerFile
+      type: string
+      description: The path to the dockerfile to build
+      default: /workspace/docker-source/Dockerfile
+    - name: pathToContext
+      type: string
+      description:
+        The build context used by Kaniko
+        (https://github.com/GoogleContainerTools/kaniko#kaniko-build-contexts)
+      default: .
+    - name: tagName
+      type: string
+      default: v-1.0.0
+      description: Build docker image tag
+        
   steps:
     - name: build-and-push
       image: core-harbor-devops-ali.wise-paas.com.cn/library/executor:v0.15.0 #harbor.wise-paas.io/kaniko-project/executor:v0.15.0

@@ -1,4 +1,4 @@
-apiVersion: tekton.dev/v1alpha1
+apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerTemplate
 metadata:
   name: gitlab-ci
@@ -15,18 +15,15 @@ spec:
     - name: tagName
       description: The tag name
     - name: pathToDockerFile
-      type: string
       default: Dockerfile
     - name: pathToContext
-      type: string
       description: dockerfile dir
       default: "/"
     - name: harborUrl
-      type: string
 
 
   resourcetemplates:
-    - apiVersion: tekton.dev/v1alpha1
+    - apiVersion: tekton.dev/v1beta1
       kind: PipelineRun
       metadata:
         name: gitlab-ci-$(uid)
