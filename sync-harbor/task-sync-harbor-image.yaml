@@ -57,16 +57,36 @@ spec:
         inHarborImage=`echo $(inputs.params.inHarborImage)|sed 's/[[:space:]]//g'`
         outHarborImage=`echo $(inputs.params.outHarborImage)|sed 's/[[:space:]]//g'`
         inImage=$(inputs.params.inHarborUrl)/$inHarborImage:$(inputs.params.imageTag)
+        echo "------ docker login "$(inputs.params.inHarborUrl)
         docker login $(inputs.params.inHarborUrl) -u $inHarborUsername -p $inHarborPassword
+        if [ $? -ne 0 ]
+        then
+           echo "------ sync image failed"
+           exit 1
+         fi
+        echo -e "\n------ docker pull "$inImage
         docker pull $inImage
+        if [ $? -ne 0 ]
+        then
+           echo "------ sync image failed"
+           exit 1
+         fi
         export IFS=","
         harborUrls=$(inputs.params.outHarborUrl)
         for u in $harborUrls
         do
         outImage=$u/$outHarborImage:$(inputs.params.imageTag)
         docker tag $inImage $outImage
+        echo -e "\n------ docker login "$u
         docker login $u -u $outHarborUsername -p $outHarborPassword
+        echo -e "\n------ start push to "$outImage
         docker push $outImage
+        if [ $? -ne 0 ]
+        then
+           echo "------ sync image failed"
+           exit 1
+         fi
+        echo -e "\n------ sync image success"
         done
         else
            echo "skip sync images"

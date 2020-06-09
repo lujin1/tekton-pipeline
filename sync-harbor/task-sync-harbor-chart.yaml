@@ -52,19 +52,38 @@ spec:
         inProjectName=`echo $inHarborImage|awk -F '/' '{print $1}'`
         outProjectName=`echo $(inputs.params.outHarborImage)|awk -F '/' '{print $1}'`
         inImage=$(inputs.params.inHarborUrl)/$inHarborImage
+        echo "------ helm add repo https://$(inputs.params.inHarborUrl)/chartrepo/$inProjectName"
         helm repo add --username $inHarborUsername --password $inHarborPassword $inProjectName https://$(inputs.params.inHarborUrl)/chartrepo/$inProjectName
+        echo -e "\n------ helm pull inProjectName/$(inputs.params.chartName) --version $(inputs.params.chartVersion)"   
         helm pull --version $(inputs.params.chartVersion) $inProjectName/$(inputs.params.chartName)
-        tar zxvf $(inputs.params.chartName)-$(inputs.params.chartVersion).tgz
-        sed -i 's/Always/IfNotPresent/g' $(inputs.params.chartName)/values.yaml
+        if [ $? -ne 0 ]
+        then
+           echo "------ sync image failed"
+           exit 1
+         fi
 
+        tar zxvf $(inputs.params.chartName)-$(inputs.params.chartVersion).tgz
+        if [ $? -ne 0 ]
+        then
+           echo "------ sync image failed"
+           exit 1
+         fi
+        sed -i 's/Always/IfNotPresent/g' $(inputs.params.chartName)/values.yaml
         export IFS=","
         harborUrls=$(inputs.params.outHarborUrl)
         for u in $harborUrls
         do
         outImage=$u/$outHarborImage
         sed -i 's#'$inImage'#'$outImage'#g'  $(inputs.params.chartName)/values.yaml
+        echo -e "\n------ helm add repo https://$u/chartrepo/$outProjectName"
         helm repo add --username $outHarborUsername --password $outHarborPassword $u https://$u/chartrepo/$outProjectName
         /opt/bin/helmpush $(inputs.params.chartName) $u
+        if [ $? -ne 0 ]
+        then
+           echo "------ sync image failed"
+           exit 1
+         fi
+        echo -e "\n------ sync chart success"
         done
 
         else
