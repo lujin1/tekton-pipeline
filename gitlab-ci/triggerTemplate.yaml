@@ -40,24 +40,24 @@ spec:
               type: git
               params:
                 - name: url
-                  value: $(params.gitHttpUrl)
+                  value: $(tt.params.gitHttpUrl)
                 - name: revision
-                  value: $(params.revision)
+                  value: $(tt.params.revision)
           - name: image-source
             resourceSpec:
               type: image
               params:
                 - name: url
-                  value: $(params.harborUrl)/$(params.imageName)
+                  value: $(tt.params.harborUrl)/$(tt.params.imageName)
 
         params:
           - name: gitProjectName
-            value: $(params.gitProjectName)
+            value: $(tt.params.gitProjectName)
           - name: pathToDockerFile
             value: Dockerfile
           - name: pathToContext
-            value:  $(params.pathToContext)
+            value:  $(tt.params.pathToContext)
           - name: tagName
-            value: $(params.tagName)
+            value: $(tt.params.tagName)
           - name: harborUrl
-            value: $(params.harborUrl)
+            value: $(tt.params.harborUrl)
