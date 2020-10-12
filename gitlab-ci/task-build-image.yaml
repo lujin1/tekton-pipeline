@@ -14,7 +14,7 @@ spec:
     - name: pathToContext
       description: The build context used by Kaniko (https://github.com/GoogleContainerTools/kaniko#kaniko-build-contexts)
       default: /workspace/workspace
-    - name: imageVersion
+    - name: version
       type: string
 
   outputs:
@@ -30,7 +30,7 @@ spec:
       value: "/tekton/home/.docker/"
     args:
     - --dockerfile=$(inputs.params.pathToDockerFile)
-    - --destination=$(outputs.resources.image-source.url):$(inputs.params.imageVersion)
+    - --destination=$(outputs.resources.image-source.url):$(inputs.params.version)
     - --context=/workspace/git-source/$(inputs.params.pathToContext)
     - --oci-layout-path=$(inputs.resources.image-source.path)
 
@@ -44,7 +44,7 @@ spec:
 apiVersion: tekton.dev/v1alpha1
 kind: Task
 metadata:
-  name: get-imageVersion
+  name: get-version
 spec:
   inputs:
     resources:
@@ -54,11 +54,11 @@ spec:
     - name: tagName
       type: string
   results:
-    - name: imageVersion
+    - name: version
   steps:
-    - name: get-imageVersion
+    - name: get-version
       image: ubuntu  # contains bash
       script: |
         #!/usr/bin/env bash
-        imageVersion=`echo $(inputs.params.tagName)|awk -F '/' '{print \$3}'`
-        echo -n "$imageVersion" | tee $(results.imageVersion.path)
+        version=`echo $(inputs.params.tagName)|awk -F '/' '{print \$3}'`
+        echo -n "$version" | tee $(results.version.path)
