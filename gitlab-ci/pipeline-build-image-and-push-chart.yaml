@@ -47,7 +47,7 @@ spec:
         - name: pathToContext
           value: $(params.pathToContext)
         - name: version
-          value: $(tasks.get-destination.results.version)
+          value: $(tasks.get-version.results.version)
       resources:
         inputs:
           - name: git-source
