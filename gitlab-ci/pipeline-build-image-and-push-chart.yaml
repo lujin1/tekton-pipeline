@@ -25,9 +25,9 @@ spec:
       type: string
 
   tasks:
-    - name: get-imageVersion
+    - name: get-version
       taskRef:
-        name: get-imageVersion 
+        name: get-version 
       params:
         - name: tagName
           value: $(params.tagName)
@@ -40,14 +40,14 @@ spec:
       taskRef:
         name: build-docker-image-from-git-source 
       runAfter:
-        - get-imageVersion
+        - get-version
       params:
         - name: pathToDockerFile
           value: $(params.pathToDockerFile)
         - name: pathToContext
           value: $(params.pathToContext)
-        - name: destination
-          value: $(tasks.get-destination.results.imageVersion)
+        - name: version
+          value: $(tasks.get-destination.results.version)
       resources:
         inputs:
           - name: git-source
