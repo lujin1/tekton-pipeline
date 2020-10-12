@@ -12,8 +12,8 @@ spec:
               secretName: gitlab-ci-secret
               secretKey: gitlabToken
             eventTypes:
-              - Tag Push Hook # Only push events
+              - Tag Push Hook
       bindings:
-        - name: gitlab-tag-push-binding
+        - ref: gitlab-tag-push-binding
       template:
         name: gitlab-ci
