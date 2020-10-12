@@ -1,6 +1,26 @@
 apiVersion: tekton.dev/v1alpha1
 kind: Task
 metadata:
+  name: get-version
+spec:
+  inputs:
+    params:
+    - name: tagName
+      type: string
+  results:
+    - name: version
+  steps:
+    - name: get-version
+      image: ubuntu  # contains bash
+      script: |
+        #!/usr/bin/env bash
+        version=`echo $(inputs.params.tagName)|awk -F '/' '{print \$3}'`
+        echo -n "$version" | tee $(results.version.path)
+
+---
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
   name: build-docker-image-from-git-source
 spec:
   inputs:
@@ -39,26 +59,3 @@ spec:
   sidecars:
     - image: registry
       name: registry
-
----
-apiVersion: tekton.dev/v1alpha1
-kind: Task
-metadata:
-  name: get-version
-spec:
-  inputs:
-    resources:
-    - name: image-source
-      type: image
-    params:
-    - name: tagName
-      type: string
-  results:
-    - name: version
-  steps:
-    - name: get-version
-      image: ubuntu  # contains bash
-      script: |
-        #!/usr/bin/env bash
-        version=`echo $(inputs.params.tagName)|awk -F '/' '{print \$3}'`
-        echo -n "$version" | tee $(results.version.path)
