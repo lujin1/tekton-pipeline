@@ -20,7 +20,7 @@ spec:
       default: "null"
     - name: outHarborUrl
       type: string
-      default: "harbor.wise-paas.com,core-harbor-devops-ali.wise-paas.com.cn"
+      default: "harbor.wise-paas.com,harbor.hz.wise-paas.com.cn"
     - name: outHarborImage
       type: string
       default: "null"
