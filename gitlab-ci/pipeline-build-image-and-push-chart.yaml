@@ -31,10 +31,6 @@ spec:
       params:
         - name: tagName
           value: $(params.tagName)
-      resources:
-        inputs:
-          - name: image-source
-            resource: image-source
             
     - name: build-docker-image-from-git-source 
       taskRef:
